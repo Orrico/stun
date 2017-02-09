@@ -9,7 +9,7 @@
  */
 namespace Stun\Core;
 
-class Posts extends \Stun\Core\Database {
+class Posts extends \Stun\Core\Entity {
 
     public function findAll($limit=100, $order='id DESC') {
         $query = \R::findAll('posts', 'ORDER BY ' . $order . ' LIMIT ' . $limit);
@@ -36,9 +36,9 @@ class Posts extends \Stun\Core\Database {
         $bindings[] = $val;
         $post = \R::findOne('posts', $field . ' = ?', $bindings);
 
-        $post['image_url'] = STUN_UPLOADS_PATH . '/noticias/' . $post->image;
-        $post['url'] = STUN_URL . '/noticias/' . $post->slug;
-        $post['url_id'] = STUN_URL . '/noticias/' . $post->id;
+        $post['image_url'] = STUN_UPLOADS_PATH . '/posts/' . $post->image;
+        $post['url'] = STUN_URL . '/posts/' . $post->slug;
+        $post['url_id'] = STUN_URL . '/posts/' . $post->id;
 
         return $post;
     }
