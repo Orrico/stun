@@ -8,14 +8,25 @@
  * @package Estupendo/Stun
  */
 
+/** Load configuration file if exists. */
+if (file_exists(STUN_PATH . '/app/config.php')) {
+    $config = include STUN_PATH . '/app/config.php';
+}
+else {
+    $config = include STUN_PATH . '/app/config-sample.php';
+}
+
 /** Load application core settings */
-require_once STUN_PATH . '/app/settings/settings.php';
+require_once STUN_PATH . '/app/settings.php';
+
+/** Default timezone used by all date/time functions. */
+date_default_timezone_set($config['timezone']);
 
 /**
 * Slim Framework
 *
 */
-$config['displayErrorDetails'] = STUN_DEBUG;
+$config['displayErrorDetails'] = $config['debug'];
 $app = new \Slim\App(['settings' => $config]);
 
 /** Slim Containers */
@@ -75,7 +86,7 @@ $container['notFoundHandler'] = function ($c) {
 /** Logger Container */
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
-    $file_handler = new \Monolog\Handler\StreamHandler(STUN_PATH . '/app/logs/app.log');
+    $file_handler = new \Monolog\Handler\StreamHandler(STUN_PATH . '/app/app.log');
     $logger->pushHandler($file_handler);
     return $logger;
 };
@@ -96,19 +107,8 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
-/** Load application classes namespace */
-require_once STUN_PATH . '/app/settings/autoloader.php';
-
-// instantiate the loader
-$classLoader = new \Psr4AutoloaderClass;
-// register the autoloader
-$classLoader->register();
-// register the base directories for the namespace prefix
-$classLoader->addNamespace('Stun\Core', STUN_PATH . '/app/core');
-// $classLoader->addNamespace('Stun\Components', STUN_PATH . '/app/components');
-
 /** Load application routes */
-require_once STUN_PATH . '/app/settings/routes.php';
+require_once STUN_PATH . '/app/routes.php';
 
 /** Run Slim Framework */
 $app->run();

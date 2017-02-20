@@ -11,10 +11,10 @@
  /**
   * Create a safe path.
   */
-function stunSafePath($path) {
-    $dirname = dirname($path);
-    return $dirname == '/' ? '' : $dirname;
-}
+ function stunSafePath($path) {
+     $dirname = dirname($path);
+     return $dirname == '/' ? '' : $dirname;
+ }
 
 /**
  * Send emails

@@ -32,6 +32,11 @@ $app->get('/', function (Request $request, Response $response) {
     // $mapper = new Posts($this->db, 'posts');
     // $posts = $mapper->findAll(20);
 
+    /** Load settings and configuration file if exists. */
+    if (!file_exists(STUN_PATH . '/app/config.php')) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/install');
+    }
+
     $siteInfo = stunSiteInfo();
 
     $response = $this->views->render('index', array('siteInfo' => $siteInfo));

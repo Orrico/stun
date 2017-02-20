@@ -19,4 +19,4 @@ mb_http_output('UTF-8');
 
 define('STUN_PATH', __DIR__);
 
-require_once STUN_PATH . '/inc/loader.php';
+require_once STUN_PATH . '/app/loader.php';

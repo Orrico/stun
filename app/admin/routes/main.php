@@ -27,3 +27,5 @@ require_once STUN_PATH . '/app/admin/routes/login.php';
 require_once STUN_PATH . '/app/admin/routes/posts.php';
 require_once STUN_PATH . '/app/admin/routes/pages.php';
 require_once STUN_PATH . '/app/admin/routes/users.php';
+
+require_once STUN_PATH . '/app/admin/routes/install.php';
