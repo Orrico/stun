@@ -7,9 +7,9 @@ use \Stun\Core\Pages as Pages;
 $app->get('/admin/pages', function (Request $request, Response $response) {
     //$this->logger->addInfo('some information');
 
-    // if (!$_SESSION['admin_login']) {
-    //     return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
-    // }
+    if (!$_SESSION['admin_login']) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
+    }
 
     $mapper = new Pages($this->db, 'pages');
     $pages = $mapper->findAll();

@@ -2,11 +2,16 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \Stun\Core\Posts as Posts;
 use \Stun\Core\Users as Users;
+use \Stun\Core\Info as Info;
 
 $app->get('/admin/install', function (Request $request, Response $response) {
     //$this->logger->addInfo('some information');
+
+    /** Load settings and configuration file if exists. */
+    if (file_exists(STUN_PATH . '/app/config.php')) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin');
+    }
 
     $adminInfo = stunAdminInfo('Installer');
 
@@ -18,9 +23,12 @@ $app->get('/admin/install', function (Request $request, Response $response) {
 $app->post('/admin/install', function (Request $request, Response $response) {
     //$this->logger->addInfo('some information');
 
-    $form = $request->getParsedBody();
+    /** Load settings and configuration file if exists. */
+    if (file_exists(STUN_PATH . '/app/config.php')) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin');
+    }
 
-    print_r($form);
+    $form = $request->getParsedBody();
 
     $config = include STUN_PATH . '/app/config-sample.php';
     $config['db']['dbname'] = $form['dbname'];
@@ -82,5 +90,38 @@ return [
     ';
 
     file_put_contents(STUN_PATH . '/app/config.php', $configFile);
+
+    if (file_exists(STUN_PATH . '/app/config.php')) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/install-setup');
+    }
+
+});
+
+$app->get('/admin/install-setup', function (Request $request, Response $response) {
+    //$this->logger->addInfo('some information');
+
+    $adminInfo = stunAdminInfo('Installer');
+
+    // function stunCheckInstallation() {}
+
+    $response = $this->adminViews->render('signin', array('adminInfo' => $adminInfo));
+    return $response;
+
+});
+
+$app->post('/admin/install-setup', function (Request $request, Response $response) {
+    //$this->logger->addInfo('some information');
+
+    $form = $request->getParsedBody();
+
+    $user = new Users($this->db, 'users');
+    $user->email = $form['email'];
+    $user->pass = sha1($form['pass']);
+    $user->createdDate = date('Y-m-d H:i:s');
+    $user->role = 'master';
+    $user->status = 1;
+    $user->store();
+
+    return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
 
 });

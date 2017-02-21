@@ -37,7 +37,7 @@
         <!-- Custom js -->
         <script src="{{adminInfo.template_url}}/assets/js/custom.js"></script>
         <!-- Form tvalidation -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.54/jquery.form-validator.min.js" integrity="sha256-5VwOpyg2kEYgLB11mE4s0ViCuoWD6MjmrXeo97UI5O8=" crossorigin="anonymous"></script>
         <script>
           $.validate({
             modules : 'security, date, html5, brazil',

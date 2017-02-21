@@ -15,7 +15,7 @@
                         <div class="panel-group" id="accordion">
                             <div id="collapseAddPost" class="panel-collapse collapse">
                                 <div class="well well-sm">
-                                    <form role="form" method="post" action="{{adminInfo.url}}/usuarios/cadastrar" enctype="multipart/form-data">
+                                    <form role="form" method="post" action="{{adminInfo.url}}/users/cadastrar" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-8">
                                                 <div class="form-group">
@@ -144,7 +144,7 @@
                                                 <tr>
                                                     <td class="text-center">{{id}}</td>
                                                     <td>
-                                                        <a href="{{adminInfo.url}}/usuarios/editar/{{id}}">
+                                                        <a href="{{adminInfo.url}}/users/editar/{{id}}">
                                                             <span class="lead">{{email}}</span>
                                                         </a>
                                                     </td>
@@ -157,13 +157,13 @@
                                                     </td>
                                                     <td class="text-center">{{role}}</td>
                                                     <td class="text-center">
-                                                        <a href="{{adminInfo.url}}/usuarios/destaque/{{id}}" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Destacar">
+                                                        <a href="{{adminInfo.url}}/users/destaque/{{id}}" class="btn btn-default btn-circle" data-toggle="tooltip" data-placement="top" title="Destacar">
                                                             <i class="fa fa-star"></i>
                                                         </a>
-                                                        <a href="{{adminInfo.url}}/usuarios/editar/{{id}}" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="{{adminInfo.url}}/users/editar/{{id}}" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Editar">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                        <a href="{{adminInfo.url}}/usuarios/apagar/{{id}}" class="btn btn-danger btn-circle apagar" data-toggle="tooltip" data-placement="top" title="Apagar">
+                                                        <a href="{{adminInfo.url}}/users/apagar/{{id}}" class="btn btn-danger btn-circle apagar" data-toggle="tooltip" data-placement="top" title="Apagar">
                                                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                         </a>
                                                     </td>

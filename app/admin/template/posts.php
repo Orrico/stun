@@ -4,7 +4,7 @@
                     <div class="admin-produtos">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3 class="page-header">Postagens</h3>
+                                <h3 class="page-header">Posts</h3>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -15,27 +15,63 @@
                         <div class="panel-group" id="accordion">
                             <div id="collapseAddPost" class="panel-collapse collapse">
                                 <div class="well well-sm">
-                                    <form role="form" method="post" action="{{adminInfo.url}}/notas/publicar" enctype="multipart/form-data">
+                                    <form role="form" method="post" action="{{adminInfo.url}}/posts/publicar" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-8">
                                                 <div class="form-group">
-                                                    <label><span class="lead">Texto</span></label>
-                                                    <input type="text" class="form-control input-lg" name="texto" required>
+                                                    <label><span class="lead">Título</span></label>
+                                                    <input type="text" class="form-control input-lg" name="title" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="lead">Link</span></label>
-                                                    <input type="text" class="form-control input-lg" name="url" placeholder="http://">
+                                                    <label><span class="lead">Conteúdo</span></label>
+                                                    <textarea class="form-control" rows="16" name="text" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 form-aside">
+                                                <div class="form-group">
+                                                    <hr>
+                                                    <h4>
+                                                        Imagem
+                                                        <small>
+                                                            <span class="label label-default">.png</span>
+                                                            <span class="label label-default">.jpg</span>
+                                                            <span class="label label-default">.gif</span>
+                                                            <span class="label label-danger">Max: 300kb</span>
+                                                        </small>
+                                                    </h4>
+                                                    <br>
+                                                    <input class="form-control" type="file" name="image" onchange="imgPreview(this);">
+                                                    <br>
+                                                    <div class="img-input">
+                                                        <img class="img-input-preview img-input-thumb" src="http://placehold.it/350x160?text=IMAGEM+DE+CAPA" alt="">
+                                                        <div class="edit-img">
+                                                            <a class="edit-img-button" data-toggle="modal" data-target="#editImageModal" href="#" title="Editar imagem">
+                                                                <i class="fa fa-crop" aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="modal fade" id="editImageModal" tabindex="-1" role="dialog" aria-labelledby="editImageModal">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                        <h4 class="modal-title" id="myModalLabel">Editar Imagem</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="img-crop-container">
+                                                                            <img id="img-crop-preview" class="img-input-preview" src="" alt="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <hr>
                                                 <div class="form-submit text-right">
-                                                    <button type="submit" class="btn btn-success btn-lg">Publicar</button>
+                                                    <button type="submit" class="btn btn-success btn-lg btn-block">Publicar</button>
                                                 </div>
                                             </div>
-                                            <!-- /.col-sm-8 (nested) -->
-                                            <div class="col-xs-12 col-sm-4 form-aside">
-
-                                            </div><!-- /.col-sm-4 (nested) -->
-                                        </div><!-- /.row (nested) -->
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -67,7 +103,6 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Texto</th>
-                                                    <th>Link</th>
                                                     <th>Criado</th>
                                                     <th>Editado</th>
                                                     <th>Status</th>
@@ -79,13 +114,8 @@
                                                 <tr>
                                                     <td class="text-center">{{id}}</td>
                                                     <td>
-                                                        <a href="{{adminInfo.url}}/notas/editar/{{id}}">
-                                                            {{texto}}
-                                                        </a>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="{{url}}" target="_blank">
-                                                            {{url}}
+                                                        <a href="{{adminInfo.url}}/posts/editar/{{id}}">
+                                                            <p class="lead">{{title}}</p>
                                                         </a>
                                                     </td>
                                                     <td class="text-center">
@@ -96,10 +126,10 @@
                                                     </td>
                                                     <td class="text-center">{{status}}</td>
                                                     <td class="text-center">
-                                                        <a href="{{adminInfo.url}}/notas/editar/{{id}}" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="{{adminInfo.url}}/posts/editar/{{id}}" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Editar">
                                                             <i class="fa fa-edit"></i>
                                                         </a>
-                                                        <a href="{{adminInfo.url}}/notas/apagar/{{id}}" class="btn btn-danger btn-circle apagar" data-toggle="tooltip" data-placement="top" title="Apagar">
+                                                        <a href="{{adminInfo.url}}/posts/apagar/{{id}}" class="btn btn-danger btn-circle apagar" data-toggle="tooltip" data-placement="top" title="Apagar">
                                                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                         </a>
                                                     </td>

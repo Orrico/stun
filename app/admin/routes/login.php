@@ -21,10 +21,10 @@ $app->post('/admin/login', function (Request $request, Response $response) {
     $mapper = new Users($this->db, 'users');
     $user = $mapper->findOne($form['email'], 'email');
 
-    if (($user != null) && ($user['pass'] === $form['pass'])) {
+    if (($user != null) && ($user['pass'] === sha1($form['pass']))) {
         $_SESSION['admin_id']       = $user->id;
         $_SESSION['name']           = $user->name;
-        $_SESSION['nivel']          = $user->nivel;
+        $_SESSION['role']           = $user->nivel;
         $_SESSION['admin_login']    = true;
         return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin');
     }

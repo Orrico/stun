@@ -31,7 +31,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-                                        <form role="form" method="post" action="{{adminInfo.url}}/paginas/editar/{{page.id}}" enctype="multipart/form-data">
+                                        <form role="form" method="post" action="{{adminInfo.url}}/pages/editar/{{page.id}}" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-8">
                                                     <div class="form-group">

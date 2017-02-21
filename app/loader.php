@@ -22,11 +22,13 @@ require_once STUN_PATH . '/app/settings.php';
 /** Default timezone used by all date/time functions. */
 date_default_timezone_set($config['timezone']);
 
+define('STUN_DEBUG', $config['debug']);
+
 /**
 * Slim Framework
 *
 */
-$config['displayErrorDetails'] = $config['debug'];
+$config['displayErrorDetails'] = STUN_DEBUG;
 $app = new \Slim\App(['settings' => $config]);
 
 /** Slim Containers */
@@ -94,12 +96,12 @@ $container['logger'] = function($c) {
 /** Database Container */
 $container['db'] = function ($c) {
     $db = $c['settings']['db'];
-    $pdo = new PDO('mysql:host=' . $db['host'] . ';port=' . $db['port'] . ';dbname=' . $db['dbname'] . ';charset=' . $db['charset'] . ';', $db['user'], $db['pass']);
+    $pdo = new PDO('mysql:host=' . $db['dbhost'] . ';port=' . $db['dbport'] . ';dbname=' . $db['dbname'] . ';charset=' . $db['charset'] . ';', $db['dbuser'], $db['dbpass']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
     /** RedBeanPHP4 connection */
-    \R::setup('mysql:host=' . $db['host'] . ';port=' . $db['port'] . ';dbname=' . $db['dbname'] . ';charset=' . $db['charset'] . ';', $db['user'], $db['pass']);
+    \R::setup('mysql:host=' . $db['dbhost'] . ';port=' . $db['dbport'] . ';dbname=' . $db['dbname'] . ';charset=' . $db['charset'] . ';', $db['dbuser'], $db['dbpass']);
 
     \R::fancyDebug(STUN_DEBUG);
 

@@ -7,9 +7,9 @@ use \Stun\Core\Users as Users;
 $app->get('/admin/users', function (Request $request, Response $response) {
     //$this->logger->addInfo('some information');
 
-    // if (!$_SESSION['admin_login']) {
-    //     return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
-    // }
+    if (!$_SESSION['admin_login']) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
+    }
 
     $mapper = new Users($this->db, 'users');
     $users = $mapper->findAll();
@@ -39,7 +39,7 @@ $app->post('/admin/users/cadastrar', function (Request $request, Response $respo
     $user = new Users($this->db, 'users');
     $user->name         = $form['name'];
     $user->email        = $form['email'];
-    $user->pass         = $form['pass'];
+    $user->pass         = sha1($form['pass']);
     $user->bio          = $form['bio'];
     $user->image        = $uploadedImage;
     $user->createdBy    = $_SESSION['name'];

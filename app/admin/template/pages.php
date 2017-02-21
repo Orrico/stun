@@ -16,7 +16,7 @@
                             <!-- <div class="panel panel-primary"> -->
                             <div id="collapseAddPost" class="panel-collapse collapse">
                                 <div class="well well-sm">
-                                    <form role="form" method="post" action="{{adminInfo.url}}/paginas/adicionar" enctype="multipart/form-data">
+                                    <form role="form" method="post" action="{{adminInfo.url}}/pages/adicionar" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-8">
                                                 <div class="form-group">
@@ -118,7 +118,7 @@
                                             <tr>
                                                 <td class="text-center">{{id}}</td>
                                                 <td>
-                                                    <a href="{{adminInfo.url}}/paginas/editar/{{id}}">
+                                                    <a href="{{adminInfo.url}}/pages/editar/{{id}}">
                                                         <span class="lead">{{title}}</span>
                                                     </a>
                                                 </td>
@@ -129,10 +129,10 @@
                                                     <span class="admin-datetime" data-date="{{editedDate}}"></span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{adminInfo.url}}/paginas/editar/{{id}}" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                    <a href="{{adminInfo.url}}/pages/editar/{{id}}" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Editar">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a href="{{adminInfo.url}}/paginas/apagar/{{id}}" class="btn btn-danger btn-circle apagar" data-toggle="tooltip" data-placement="top" title="Apagar">
+                                                    <a href="{{adminInfo.url}}/pages/apagar/{{id}}" class="btn btn-danger btn-circle apagar" data-toggle="tooltip" data-placement="top" title="Apagar">
                                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>

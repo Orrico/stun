@@ -1,10 +1,10 @@
 {{> header.inc}}
-                <!-- page content -->
+                <!-- post content -->
                 <div class="right_col" role="main">
                     <div class="">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3 class="page-header">Notas</h3>
+                                <h3 class="page-header">Posts</h3>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -31,27 +31,64 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-                                        <form role="form" method="post" enctype="multipart/form-data">
+                                        <form role="form" method="post" action="{{adminInfo.url}}/posts/editar/{{post.id}}" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-8">
                                                     <div class="form-group">
-                                                        <label><span class="lead">Texto</span></label>
-                                                        <input type="text" class="form-control input-lg" name="texto" value="{{post.texto}}" required>
+                                                        <label><span class="lead">Título</span></label>
+                                                        <input type="text" class="form-control input-lg" name="title" value="{{post.title}}" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label><span class="lead">Link</span></label>
-                                                        <input type="text" class="form-control input-lg" name="url" value="{{post.url}}" placeholder="http://">
+                                                        <label><span class="lead">Conteúdo</span></label>
+                                                        <textarea class="form-control" rows="16" name="text" required>{{post.content}}</textarea>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xs-12 col-sm-4 form-aside">
+                                                    <div class="form-group">
+                                                        <hr>
+                                                        <h4>
+                                                            Imagem
+                                                            <small>
+                                                                <span class="label label-default">.png</span>
+                                                                <span class="label label-default">.jpg</span>
+                                                                <span class="label label-default">.gif</span>
+                                                                <span class="label label-danger">Max: 300kb</span>
+                                                            </small>
+                                                        </h4>
+                                                        <br>
+                                                        <input class="form-control" type="file" name="image" onchange="imgPreview(this);">
+                                                        <br>
+                                                        <div class="img-input">
+                                                            <img class="img-input-preview img-input-thumb" src="{{post.image_url}}" alt="">
+                                                            <div class="edit-img">
+                                                                <a class="edit-img-button" data-toggle="modal" data-target="#editImageModal" href="#" title="Editar imagem">
+                                                                    <i class="fa fa-crop" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+
+                                                            <div class="modal fade" id="editImageModal" tabindex="-1" role="dialog" aria-labelledby="editImageModal">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                            <h4 class="modal-title" id="myModalLabel">Editar Imagem</h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="img-crop-container">
+                                                                                <img id="img-crop-preview" class="img-input-preview" src="{{post.image_url}}" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <hr>
                                                     <div class="form-submit text-right">
-                                                        <button type="submit" class="btn btn-success btn-lg">Atualizar</button>
+                                                        <button type="submit" class="btn btn-success btn-lg btn-block">Atualizar</button>
                                                     </div>
                                                 </div>
-                                                <!-- /.col-sm-8 (nested) -->
-                                                <div class="col-xs-12 col-sm-4 form-aside">
-
-                                                </div><!-- /.col-sm-4 (nested) -->
-                                            </div><!-- /.row (nested) -->
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -59,5 +96,5 @@
                         </div>
                     </div>
                 </div>
-                <!-- /page content -->
+                <!-- /post content -->
 {{> footer.inc}}

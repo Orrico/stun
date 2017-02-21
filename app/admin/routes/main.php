@@ -8,9 +8,14 @@ use \Stun\Core\Posts as Posts;
 $app->get('/admin', function (Request $request, Response $response) {
     //$this->logger->addInfo('some information');
 
-    // if (!$_SESSION['admin_login']) {
-    //     return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
-    // }
+    if (!$_SESSION['admin_login']) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/login');
+    }
+
+    /** Load settings and configuration file if exists. */
+    if (!file_exists(STUN_PATH . '/app/config.php')) {
+        return $response->withStatus(302)->withHeader('Location', STUN_URL . '/admin/install');
+    }
 
     $mapper = new Users($this->db, 'users');
     $user = $mapper->findOne((int)$_SESSION['admin_id']);
