@@ -7,9 +7,9 @@
  *
  * @package Estupendo/Stun
  */
-namespace Stun\Core;
+namespace Stun\Component;
 
-class Posts extends \Stun\Core\Entity {
+class Posts extends \Stun\Core\Database {
 
     public function findAll($limit=100, $order='id DESC') {
         $query = \R::findAll('posts', 'ORDER BY ' . $order . ' LIMIT ' . $limit);

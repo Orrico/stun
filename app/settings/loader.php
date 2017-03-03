@@ -8,21 +8,34 @@
  * @package Estupendo/Stun
  */
 
+/** Load application dependencies (Composer) */
+require_once STUN_PATH . '/vendor/autoload.php';
+
 /** Load configuration file if exists. */
-if (file_exists(STUN_PATH . '/app/config.php')) {
-    $config = include STUN_PATH . '/app/config.php';
+try {
+    (new Dotenv\Dotenv(STUN_PATH))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+    (new Dotenv\Dotenv(STUN_PATH, '.env.example'))->load();
 }
-else {
-    $config = include STUN_PATH . '/app/config-sample.php';
-}
+
+/** Load application classes namespace */
+require_once STUN_PATH . '/app/settings/autoloader.php';
+$classLoader = new \Psr4AutoloaderClass;
+$classLoader->register();
+// register the base directories for the namespace prefix
+$classLoader->addNamespace('Stun\Core', STUN_PATH . '/app/core');
+$classLoader->addNamespace('Stun\Component', STUN_PATH . '/app/components');
+
+/** Load application core functions */
+require_once STUN_PATH . '/app/settings/functions.php';
 
 /** Load application core settings */
-require_once STUN_PATH . '/app/settings.php';
+require_once STUN_PATH . '/app/settings/settings.php';
 
 /** Default timezone used by all date/time functions. */
-date_default_timezone_set($config['timezone']);
+date_default_timezone_set(getenv('STUN_TIMEZONE'));
 
-define('STUN_DEBUG', $config['debug']);
+define('STUN_DEBUG', getenv('STUN_DEBUG'));
 
 /**
 * Slim Framework
@@ -78,8 +91,8 @@ $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         return $c['response']
             ->withStatus(404)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('Page not found');
+            ->withHeader('Content-Type', 'application/json')
+            ->write('Resource Not Found');
     };
 };
 
@@ -88,7 +101,7 @@ $container['notFoundHandler'] = function ($c) {
 /** Logger Container */
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
-    $file_handler = new \Monolog\Handler\StreamHandler(STUN_PATH . '/app/app.log');
+    $file_handler = new \Monolog\Handler\StreamHandler(STUN_PATH . '/app/settings/app.log');
     $logger->pushHandler($file_handler);
     return $logger;
 };
@@ -110,7 +123,7 @@ $container['db'] = function ($c) {
 };
 
 /** Load application routes */
-require_once STUN_PATH . '/app/routes.php';
+require_once STUN_PATH . '/app/routes/web.php';
 
 /** Run Slim Framework */
 $app->run();

@@ -10,7 +10,7 @@
 
 namespace Stun\Core;
 
-abstract class Entity {
+abstract class Database {
     protected $pdo;
     protected $bean;
     protected $type;
